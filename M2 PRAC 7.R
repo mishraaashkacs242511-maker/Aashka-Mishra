@@ -1,18 +1,19 @@
-library(readr)
-library(dplyr)
-df <- read_csv("student_exam_scores.csv")
+# Load dataset
+data <- read.csv("D:/S095 Aashka/student_exam_scores.csv")
+View(data)
 
-# View structure
-str(df)
-df <- df %>%
-  mutate(study_group = case_when(
-    hours_studied < 3 ~ "Low",
-    hours_studied >= 3 & hours_studied <= 6 ~ "Medium",
-    hours_studied > 6 ~ "High"
-  ))
+# Create attendance groups
+data$attendance_group <- cut(
+  data$attendance_percent,
+  breaks = c(0, 70, 85, 100),
+  labels = c("Low", "Medium", "High")
+)
 
-# Convert to factor
-df$study_group <- as.factor(df$study_group)
+# Perform One-Way ANOVA
+anova_result <- aov(exam_score ~ attendance_group, data = data)
 
-# Check groups
-table(df$study_group)
+# Display ANOVA table
+summary(anova_result)
+
+
+
