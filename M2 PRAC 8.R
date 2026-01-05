@@ -1,30 +1,25 @@
 # Load dataset
-data <- read.csv("D:/S095 Aashka/student_exam_scores.csv")
+data <- read.csv("D:/S095 Aashka/Student Stress Factors.csv")
 
-# Create attendance groups
-data$attendance_group <- cut(
-  data$attendance_percent,
-  breaks = c(0, 70, 85, 100),
-  labels = c("Low", "Medium", "High")
+# Rename columns for simplicity (optional but recommended)
+colnames(data) <- c(
+  "Sleep_Quality",
+  "Headache_Frequency",
+  "Academic_Performance",
+  "Study_Load",
+  "Extracurricular_Activities",
+  "Stress_Level"
 )
 
-# Create study hours groups
-data$study_hours_group <- cut(
-  data$hours_studied,
-  breaks = c(0, 4, 7, 12),
-  labels = c("Low", "Medium", "High")
-)
-
-# Convert to factors
-data$attendance_group <- as.factor(data$attendance_group)
-data$study_hours_group <- as.factor(data$study_hours_group)
+# Convert variables to factors
+data$Sleep_Quality <- as.factor(data$Sleep_Quality)
+data$Stress_Level <- as.factor(data$Stress_Level)
 
 # Two-Way ANOVA
 anova_result <- aov(
-  exam_score ~ attendance_group * study_hours_group,
+  Academic_Performance ~ Stress_Level * Sleep_Quality,
   data = data
 )
 
-# Display result
+# Display ANOVA table
 summary(anova_result)
-
