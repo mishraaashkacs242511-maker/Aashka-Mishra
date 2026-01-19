@@ -1,0 +1,22 @@
+
+Call:
+glm(formula = good_quality ~ alcohol + sulphates + volatile.acidity, 
+    family = binomial, data = wine_data)
+
+Coefficients:
+                 Estimate Std. Error z value Pr(>|z|)    
+(Intercept)      -9.71979    0.78389 -12.399  < 2e-16 ***
+alcohol           0.99736    0.06907  14.439  < 2e-16 ***
+sulphates         1.87346    0.36942   5.071 3.95e-07 ***
+volatile.acidity -3.12166    0.36469  -8.560  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2209.0  on 1598  degrees of freedom
+Residual deviance: 1724.5  on 1595  degrees of freedom
+AIC: 1732.5
+
+Number of Fisher Scoring iterations: 4
+
