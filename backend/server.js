@@ -1,23 +1,29 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const studentRoutes = require("./routes/studentRoutes");
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
-app.use(cors()); // ✅ Crucial for deployment
+
+// Middleware
+app.use(cors()); 
 app.use(express.json());
 
-// ✅ Use MongoDB Atlas link from your environment variables
-const MONGO_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/hostelDB";
+// Database Connection
+const mongoURI = process.env.MONGODB_URI;
 
-mongoose.connect(MONGO_URI)
-  .then(() => console.log("MongoDB Connected Successfully"))
-  .catch(err => console.log("DB Connection Error:", err));
+mongoose.connect(mongoURI)
+  .then(() => console.log('✅ MongoDB Connected to HostelProDB'))
+  .catch(err => {
+    console.error('❌ DB Connection Error:', err.message);
+  });
 
-app.use("/api/students", studentRoutes);
+// Routes
+app.use('/api/students', require('./routes/studentRoutes'));
+app.use('/api/rooms', require('./routes/roomRoutes'));
 
-// ✅ Render will provide a dynamic PORT
-const PORT = process.env.PORT || 5000;
+// Port - Defaults to 10000 for Render
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 HostelPro Backend running on port ${PORT}`);
 });

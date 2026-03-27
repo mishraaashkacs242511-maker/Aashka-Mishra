@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class StudentService {
-  // This is your live Render link!
+  // ✅ Pointing to your live Render backend
   private apiUrl = 'https://hostel-backend-e2si.onrender.com/api/students';
 
   constructor(private http: HttpClient) {}
@@ -19,7 +19,6 @@ export class StudentService {
   }
 
   updateStudent(id: string, data: any) {
-    // We use the backticks `` to combine the ID with the URL
     return this.http.put(`${this.apiUrl}/${id}`, data);
   }
 
