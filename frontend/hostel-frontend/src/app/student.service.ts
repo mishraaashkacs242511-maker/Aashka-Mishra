@@ -2,29 +2,28 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-providedIn:'root'
+  providedIn: 'root'
 })
+export class StudentService {
+  // This is your live Render link!
+  private apiUrl = 'https://hostel-backend-e2si.onrender.com/api/students';
 
-export class StudentService{
+  constructor(private http: HttpClient) {}
 
-api="http://localhost:5000/api/students";
+  getStudents() {
+    return this.http.get<any[]>(this.apiUrl);
+  }
 
-constructor(private http:HttpClient){}
+  addStudent(data: any) {
+    return this.http.post(this.apiUrl, data);
+  }
 
-getStudents(){
-return this.http.get<any[]>(this.api);
-}
+  updateStudent(id: string, data: any) {
+    // We use the backticks `` to combine the ID with the URL
+    return this.http.put(`${this.apiUrl}/${id}`, data);
+  }
 
-addStudent(data:any){
-return this.http.post(this.api,data);
-}
-
-updateStudent(id:string,data:any){
-return this.http.put(this.api+"/"+id,data);
-}
-
-deleteStudent(id:string){
-return this.http.delete(this.api+"/"+id);
-}
-private apiUrl = 'https://hostel-backend-xxxx.onrender.com/api/students';
+  deleteStudent(id: string) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }
