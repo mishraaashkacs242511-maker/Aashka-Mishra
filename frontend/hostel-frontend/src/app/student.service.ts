@@ -26,5 +26,5 @@ return this.http.put(this.api+"/"+id,data);
 deleteStudent(id:string){
 return this.http.delete(this.api+"/"+id);
 }
-
+private apiUrl = 'https://hostel-backend-xxxx.onrender.com/api/students';
 }
